@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose;
 
@@ -13,9 +14,9 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    joinDate: {
-      type: Date,
-      default: Date.now,
+    password: {
+      type: String,
+      required: true,
     },
     favorites: {
       type: [Schema.Types.ObjectId],
@@ -25,4 +26,20 @@ const UserSchema = new Schema(
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
 );
 
-module.export = mongoose.model('User', UserSchema);
+/* eslint-disable */
+UserSchema.pre('save', function(next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+    bcrypt.hash(this.password, salt, function(err, hash) {
+      if (err) return next(err);
+      this.password = hash;
+      next();
+    });
+  });
+});
+/* eslint-enable */
+
+module.exports = mongoose.model('User', UserSchema);
