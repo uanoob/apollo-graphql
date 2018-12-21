@@ -26,8 +26,9 @@ class Login extends Component {
 
   handleSubmit = (e, loginUser) => {
     e.preventDefault();
-    loginUser().then((data) => {
-      console.log(data);
+    loginUser().then(({ data }) => {
+      const { token } = data.loginUser;
+      localStorage.setItem('token', token);
     });
     this.clearState();
   };
