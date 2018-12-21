@@ -1,9 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { ApolloServer } = require('apollo-server-express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
 const { typeDefs } = require('./schema');
 const { resolvers } = require('./resolvers');
-const { PORT, MONGO_URI } = require('./config');
+const {
+  PORT, MONGO_URI, CORS_ORIGIN, JWT_KEY,
+} = require('./config');
 const Recipe = require('./models/Recipe');
 const User = require('./models/User');
 
@@ -30,19 +36,54 @@ mongoose
 
 const app = express();
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: {
-    Recipe,
-    User,
-  },
-  playground: {
-    endpoint: '/graphql',
-  },
+const corsOptions = {
+  origin: CORS_ORIGIN,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+// Set up JWT authentication middleware
+app.use(async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token !== 'null') {
+    try {
+      const currentUser = await jwt.verify(token, JWT_KEY);
+      req.currentUser = currentUser;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  next();
 });
 
-server.applyMiddleware({ app });
+// Create schema
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
+
+// Create Graphiql application
+app.use(
+  '/graphiql',
+  graphiqlExpress({
+    endpointURL: '/graphql',
+  }),
+);
+
+// Connect schemas with Graphql
+app.use(
+  '/graphql',
+  bodyParser.json(),
+  graphqlExpress(({ currentUser }) => ({
+    schema,
+    context: {
+      Recipe,
+      User,
+      currentUser,
+    },
+  })),
+);
 
 app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);
