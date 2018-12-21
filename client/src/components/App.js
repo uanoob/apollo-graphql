@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import './App.css';
-import GET_ALL_RECIPES from '../queries';
+import { GET_ALL_RECIPES } from '../queries';
 
 const App = () => (
   <div className="App">
