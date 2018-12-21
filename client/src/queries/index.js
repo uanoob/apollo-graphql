@@ -1,6 +1,7 @@
 import { gql } from 'apollo-boost';
 
-const GET_ALL_RECIPES = gql`
+/* Recipes Queries */
+export const GET_ALL_RECIPES = gql`
   query {
     getAllRecipes {
       name
@@ -14,4 +15,16 @@ const GET_ALL_RECIPES = gql`
   }
 `;
 
-export default GET_ALL_RECIPES;
+/* Resipes Mutations */
+
+/* User Queries */
+
+/* User Mutations */
+
+export const SIGNUP_USER = gql`
+  mutation($username: String!, $email: String!, $password: String!) {
+    signupUser(username: $username, email: $email, password: $password) {
+      token
+    }
+  }
+`;
