@@ -1,6 +1,4 @@
-const { gql } = require('apollo-server-express');
-
-exports.typeDefs = gql`
+exports.typeDefs = `
   type Recipe {
     _id: ID
     name: String!
@@ -23,6 +21,7 @@ exports.typeDefs = gql`
   }
   type Query {
     getAllRecipes: [Recipe]
+    getCurrentUser: User
   }
   type Token {
     token: String!
