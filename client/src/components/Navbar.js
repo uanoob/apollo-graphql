@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import stringToChar from '../utils/stringToChar.utils';
+import Logout from './auth/Logout';
 
 const NavbarNotAuth = () => (
   <ul>
@@ -40,7 +41,7 @@ const NavbarAuth = ({ session }) => (
         <NavLink to="profile">Profile</NavLink>
       </li>
       <li>
-        <button type="button">Logout</button>
+        <Logout />
       </li>
       <li>
         <div className="avatar">{stringToChar(session.getCurrentUser.username)}</div>
