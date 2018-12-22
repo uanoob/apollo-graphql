@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router, Route, Switch, Redirect,
@@ -9,8 +9,12 @@ import { ApolloProvider } from 'react-apollo';
 import API_URI from './config';
 import './index.css';
 import App from './components/App';
+import Navbar from './components/Navbar';
+import Search from './components/recipe/Search';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
+import AddRecipe from './components/recipe/AddRecipe';
+import Profile from './components/profile/Profile';
 import withSession from './components/withSession';
 
 const client = new ApolloClient({
@@ -36,19 +40,38 @@ const client = new ApolloClient({
   },
 });
 
-const Root = ({ refetch }) => (
+const Root = ({ refetch, session }) => (
   <Router>
-    <Switch>
-      <Route exact path="/" component={App} />
-      <Route path="/login" render={() => <Login refetch={refetch} />} />
-      <Route path="/signup" render={() => <Signup refetch={refetch} />} />
-      <Redirect to="/" />
-    </Switch>
+    <Fragment>
+      <Navbar session={session} />
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/search" component={Search} />
+        <Route path="/login" render={() => <Login refetch={refetch} />} />
+        <Route path="/signup" render={() => <Signup refetch={refetch} />} />
+        <Route path="/recipe/add" component={AddRecipe} />
+        <Route path="/profile" component={Profile} />
+        <Redirect to="/" />
+      </Switch>
+    </Fragment>
   </Router>
 );
 
+Root.defaultProps = {
+  session: PropTypes.shape({
+    getCurrentUser: null,
+  }),
+};
+
 Root.propTypes = {
   refetch: PropTypes.func.isRequired,
+  session: PropTypes.shape({
+    getCurrentUser: PropTypes.shape({
+      created_at: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 const RootWithSession = withSession(Root);
