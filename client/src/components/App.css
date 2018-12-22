@@ -25,6 +25,17 @@ ul {
   list-style: none;
 }
 
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  color: white;
+  background-color: #1EAEDB;
+}
+
 input,
 select,
 textarea {
