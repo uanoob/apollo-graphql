@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router, Route, Switch, Redirect,
 } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import API_URI from './config';
@@ -35,16 +36,20 @@ const client = new ApolloClient({
   },
 });
 
-const Root = () => (
+const Root = ({ refetch }) => (
   <Router>
     <Switch>
       <Route exact path="/" component={App} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
+      <Route path="/login" render={() => <Login refetch={refetch} />} />
+      <Route path="/signup" render={() => <Signup refetch={refetch} />} />
       <Redirect to="/" />
     </Switch>
   </Router>
 );
+
+Root.propTypes = {
+  refetch: PropTypes.func.isRequired,
+};
 
 const RootWithSession = withSession(Root);
 

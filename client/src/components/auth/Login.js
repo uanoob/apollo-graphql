@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { LOGIN_USER } from '../../queries';
 import Error from '../Error';
@@ -26,11 +28,14 @@ class Login extends Component {
 
   handleSubmit = (e, loginUser) => {
     e.preventDefault();
-    loginUser().then(({ data }) => {
+    const { history, refetch } = this.props;
+    loginUser().then(async ({ data }) => {
       const { token } = data.loginUser;
       localStorage.setItem('token', token);
+      await refetch();
+      this.clearState();
+      history.push('/');
     });
-    this.clearState();
   };
 
   validateForm = () => {
@@ -83,4 +88,11 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  refetch: PropTypes.func.isRequired,
+};
+
+export default withRouter(Login);
