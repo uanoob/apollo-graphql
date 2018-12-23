@@ -34,7 +34,7 @@ ul {
   height: 5rem;
   border-radius: 50%;
   color: white;
-  background-color: #1EAEDB;
+  background-color: #1eaedb;
 }
 
 input,
@@ -58,4 +58,12 @@ textarea {
 .delete-button {
   color: red;
   cursor: pointer;
+}
+
+button:active {
+  background-color: #1eaedb;
+}
+
+button:disabled {
+  background-color: #efefef;
 }
