@@ -23,7 +23,7 @@ const UserSchema = new Schema(
       ref: 'Recipe',
     },
   },
-  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
+  { timestamps: true },
 );
 
 /* eslint-disable */
