@@ -135,7 +135,7 @@ AddRecipe.defaultProps = {
 AddRecipe.propTypes = {
   session: PropTypes.shape({
     getCurrentUser: PropTypes.shape({
-      created_at: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
     }),
