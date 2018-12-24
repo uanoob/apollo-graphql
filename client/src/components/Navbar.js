@@ -35,10 +35,10 @@ const NavbarAuth = ({ session }) => (
         <NavLink to="/search">Search</NavLink>
       </li>
       <li>
-        <NavLink to="recipe/add">Add Recipe</NavLink>
+        <NavLink to="/recipe/add">Add Recipe</NavLink>
       </li>
       <li>
-        <NavLink to="profile">Profile</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
       </li>
       <li>
         <Logout />
@@ -59,7 +59,7 @@ NavbarAuth.defaultProps = {
 NavbarAuth.propTypes = {
   session: PropTypes.shape({
     getCurrentUser: PropTypes.shape({
-      created_at: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
     }),
@@ -79,7 +79,7 @@ Navbar.defaultProps = {
 Navbar.propTypes = {
   session: PropTypes.shape({
     getCurrentUser: PropTypes.shape({
-      created_at: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
     }),
