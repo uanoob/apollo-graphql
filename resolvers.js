@@ -11,7 +11,7 @@ exports.resolvers = {
   Query: {
     getAllRecipes: async (root, args, { Recipe }) => {
       const allRecipes = await Recipe.find().sort({
-        updated_at: 'desc',
+        updatedAt: 'desc',
       });
       return allRecipes;
     },
@@ -31,7 +31,7 @@ exports.resolvers = {
       }
       const recipes = await Recipe.find().sort({
         likes: 'desc',
-        updated_at: 'desc',
+        updatedAt: 'desc',
       });
       return recipes;
     },

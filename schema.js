@@ -5,8 +5,8 @@ exports.typeDefs = `
     category: String!
     description: String!
     instructions: String!
-    created_at: String
-    updated_at: String
+    createdAt: String
+    updatedAt: String
     likes: Int
     username: String
   }
@@ -15,8 +15,8 @@ exports.typeDefs = `
     username: String!
     password: String!
     email: String!
-    created_at: String
-    updated_at: String
+    createdAt: String
+    updatedAt: String
     favorites: [Recipe]
   }
   type Query {
