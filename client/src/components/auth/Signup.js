@@ -32,7 +32,7 @@ class Signup extends Component {
     e.preventDefault();
     const { history, refetch } = this.props;
     signupUser().then(async ({ data }) => {
-      const { token } = data.loginUser;
+      const { token } = data.signupUser;
       localStorage.setItem('token', token);
       await refetch();
       this.clearState();
