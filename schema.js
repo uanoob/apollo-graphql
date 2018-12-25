@@ -37,6 +37,7 @@ exports.typeDefs = `
       instructions: String!
       username: String
     ): Recipe
+    deleteRecipe(_id: ID!): Recipe
     loginUser(username: String!, password: String!): Token
     signupUser(username: String!, email: String!, password: String!): Token
   }
