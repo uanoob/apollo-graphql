@@ -45,6 +45,12 @@ exports.resolvers = {
       });
       return user;
     },
+    getUserRecipes: async (root, { username }, { Recipe }) => {
+      const userRecipes = await Recipe.find({ username }).sort({
+        updatedAt: 'desc',
+      });
+      return userRecipes;
+    },
   },
   Mutation: {
     addRecipe: async (
