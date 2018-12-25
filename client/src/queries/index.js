@@ -7,6 +7,7 @@ export const GET_ALL_RECIPES = gql`
       _id
       name
       category
+      updatedAt
     }
   }
 `;
@@ -19,7 +20,7 @@ export const GET_RECIPE = gql`
       category
       description
       instructions
-      created_at
+      createdAt
       likes
       username
     }
@@ -57,8 +58,8 @@ export const ADD_RECIPE = gql`
       category
       description
       instructions
-      created_at
-      updated_at
+      createdAt
+      updatedAt
       likes
       username
     }
@@ -71,7 +72,21 @@ export const GET_CURRENT_USER = gql`
     getCurrentUser {
       username
       email
-      created_at
+      createdAt
+      favorites {
+        _id
+        name
+      }
+    }
+  }
+`;
+
+export const GET_USER_RECIPES = gql`
+  query($username: String!) {
+    getUserRecipes(username: $username) {
+      _id
+      name
+      likes
     }
   }
 `;
