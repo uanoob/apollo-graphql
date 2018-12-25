@@ -29,7 +29,11 @@ const UserInfo = ({ session }) => {
               </Link>
             </li>
           ))}
-          {!favorites.length && <p>You have no favorites currently. Go add some!</p>}
+          {!favorites.length && (
+            <p>
+              <strong>You have no favorites currently. Go add some!</strong>
+            </p>
+          )}
         </ul>
       </ul>
     </div>
