@@ -56,8 +56,14 @@ textarea {
 }
 
 .delete-button {
-  color: red;
+  border: 1px solid rgb(255, 125, 125);
+  color: rgb(255, 125, 125);
   cursor: pointer;
+}
+
+.delete-button:active {
+  background-color: rgb(255, 125, 125);
+  color: white;
 }
 
 button:active {
@@ -66,4 +72,10 @@ button:active {
 
 button:disabled {
   background-color: #efefef;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
