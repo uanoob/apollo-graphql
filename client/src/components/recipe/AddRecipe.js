@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import { Mutation } from 'react-apollo';
 import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries';
 import Error from '../Error';
+import withAuth from '../withAuth';
 
 const initialState = {
   name: '',
@@ -145,4 +146,4 @@ AddRecipe.propTypes = {
   }).isRequired,
 };
 
-export default withRouter(AddRecipe);
+export default withRouter(withAuth(session => session && session.getCurrentUser)(AddRecipe));
