@@ -37,13 +37,11 @@ class LikeRecipe extends Component {
     const { refetch } = this.props;
     const { liked } = this.state;
     if (liked) {
-      likeRecipe().then(async (data) => {
-        console.log(data);
+      likeRecipe().then(async () => {
         await refetch();
       });
     } else {
-      unlikeRecipe().then(async (data) => {
-        console.log(data);
+      unlikeRecipe().then(async () => {
         await refetch();
       });
     }

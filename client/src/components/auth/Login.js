@@ -56,7 +56,7 @@ class Login extends Component {
             password,
           }}
         >
-          {(loginUser, { data, loading, error }) => (
+          {(loginUser, { loading, error }) => (
             <form className="form" onSubmit={e => this.handleSubmit(e, loginUser)}>
               <input
                 type="text"

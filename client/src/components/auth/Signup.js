@@ -63,7 +63,7 @@ class Signup extends Component {
             password,
           }}
         >
-          {(signupUser, { data, loading, error }) => (
+          {(signupUser, { loading, error }) => (
             <form className="form" onSubmit={e => this.handleSubmit(e, signupUser)}>
               <input
                 type="text"
