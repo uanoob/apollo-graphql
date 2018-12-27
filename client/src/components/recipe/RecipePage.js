@@ -17,17 +17,33 @@ const RecipePage = ({ match }) => {
           return <div>Error</div>;
         }
         const {
-          name, category, description, instructions, likes, username,
+          name,
+          imageUrl,
+          category,
+          description,
+          instructions,
+          likes,
+          username,
         } = data.getRecipe;
         return (
           <div className="App ">
-            <h4>{name}</h4>
-            <p>{category}</p>
-            <p>{description}</p>
-            <p>{instructions}</p>
-            <p>{likes}</p>
-            <p>{`Created By: ${username}`}</p>
-            <LikeRecipe _id={_id} />
+            <div
+              className="recipe-image"
+              style={{ background: `url(${imageUrl}) center center / cover no-repeat` }}
+            />
+            <div className="recipe">
+              <h4 className="recipe-header">{name}</h4>
+              <p>{category}</p>
+              <blockquote className="recipe-description">{description}</blockquote>
+              <h3 className="recipe-instructions__title">Instructions:</h3>
+              <div
+                className="recipe-instructions"
+                dangerouslySetInnerHTML={{ __html: instructions }}
+              />
+              <p>{likes}</p>
+              <p>{`Created By: ${username}`}</p>
+              <LikeRecipe _id={_id} />
+            </div>
           </div>
         );
       }}
