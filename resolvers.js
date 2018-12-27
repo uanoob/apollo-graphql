@@ -56,12 +56,13 @@ exports.resolvers = {
     addRecipe: async (
       root,
       {
-        name, description, category, instructions, username,
+        name, imageUrl, description, category, instructions, username,
       },
       { Recipe },
     ) => {
       const newRecipe = await new Recipe({
         name,
+        imageUrl,
         description,
         category,
         instructions,
@@ -77,12 +78,12 @@ exports.resolvers = {
     },
     likeRecipe: async (root, { _id, username }, { Recipe, User }) => {
       const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: 1 } });
-      const user = await User.findOneAndUpdate({ username }, { $addToSet: { favorites: _id } });
+      await User.findOneAndUpdate({ username }, { $addToSet: { favorites: _id } });
       return recipe;
     },
     unlikeRecipe: async (root, { _id, username }, { Recipe, User }) => {
       const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: -1 } });
-      const user = await User.findOneAndUpdate({ username }, { $pull: { favorites: _id } });
+      await User.findOneAndUpdate({ username }, { $pull: { favorites: _id } });
       return recipe;
     },
     loginUser: async (root, { username, password }, { User }) => {
