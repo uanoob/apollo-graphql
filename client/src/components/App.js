@@ -6,7 +6,7 @@ import RecipeItem from './recipe/RecipeItem';
 
 const App = () => (
   <div className="App">
-    <h1>Home</h1>
+    <h1 className="main-title">Find Recipes You Love</h1>
     <Query query={GET_ALL_RECIPES}>
       {({ data, loading, error }) => {
         if (loading) {
@@ -15,8 +15,9 @@ const App = () => (
         if (error) {
           return <div>Error</div>;
         }
+        console.log(data);
         return (
-          <ul>
+          <ul className="cards">
             {data.getAllRecipes.map(recipe => (
               <RecipeItem key={recipe._id} {...recipe} />
             ))}
